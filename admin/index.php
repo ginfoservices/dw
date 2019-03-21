@@ -72,58 +72,59 @@
 
 <body>
     <?php
-
-		if ($_SERVER['REQUEST_METHOD'] == "POST") {
-			$table = mysqli_real_escape_string($conn, $_POST['table']);
-			$username = mysqli_real_escape_string($conn, $_POST['username']);
-			$password = mysqli_real_escape_string($conn, $_POST['password']);
-
-
-			$query = "SELECT * from {$table} where username='$username'";
-
-			$result = mysqli_query($conn, $query);
+	include "../includes/dbconnection.php";
+	if ($_SERVER['REQUEST_METHOD'] == "POST") {
+		$table = mysqli_real_escape_string($conn, $_POST['table']);
+		$username = mysqli_real_escape_string($conn, $_POST['username']);
+		$password = mysqli_real_escape_string($conn, $_POST['password']);
 
 
+		$query = "SELECT * from {$table} where username='$username'";
+		echo $query;
+		$result = mysqli_query($conn, $query);
 
-			if (mysqli_num_rows($result) > 0) {
-				$row = mysqli_fetch_assoc($result);
 
-				if (password_verify($password, $row['password'])) {
 
-					if (isset($_POST['remember_me'])) {
-						$_SESSION['username'] = $row['username'];
-						$_SESSION['cafe_name'] = $row['cafe_name'];
-					}
+		if (mysqli_num_rows($result) > 0) {
+			$row = mysqli_fetch_assoc($result);
 
+			if (password_verify($password, $row['password'])) {
+
+				if (isset($_POST['remember_me'])) {
 					$_SESSION['username'] = $row['username'];
 					$_SESSION['cafe_name'] = $row['cafe_name'];
-
-					header('location: index.php?page=admin');
-				} else {
-
-					$_SESSION['error'] = "Login Failed";
-					header('location: index.php');
 				}
+
+				$_SESSION['username'] = $row['username'];
+				$_SESSION['cafe_name'] = $row['cafe_name'];
+
+				header('location: pages/registration.php');
+			} else {
+
+				$_SESSION['error'] = "Login Failed";
+				header('location: index.php');
 			}
 		}
+	}
 
-		?>
+	?>
 
     <div class="text-center">
         <form class="form-signin" method="post" action="">
             <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-            <h1 class="h3 mb-3 font-weight-normal">Cafe Management <small>Registration</small></h1>
-            <input type="hidden" name="table" value="settings">
-            <label for="username" class="sr-only">Registration Code</label>
-            <input type="text" id="username" name="username" class="form-control" placeholder="Registration Code" required autofocus>
+            <h1 class="h3 mb-3 font-weight-normal">Cafe Management <small>Login</small></h1>
+            <input type="hidden" name="table" value="users">
+            <label for="username" class="sr-only">Username</label>
+            <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
             <label for="password" class="sr-only">Password</label>
             <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
             <div class="checkbox mb-3">
                 <label>
-                    <input type="checkbox" value="remember-me"> Keep Me Logged in
+                    <input type="checkbox" value="remember-me" checked> Keep Me Logged in
                 </label>
             </div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            <p class="mt-2 mb-2"><a href="registration.php" class="links">Don't have an account ?</a></p>
             <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
         </form>
     </div>

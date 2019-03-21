@@ -15,7 +15,8 @@ $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : "";
 
 if ($page != "") {
 	include "pages/{$page}.php";
-} 
+}
 
 
 require_once 'includes/footer.php';
+
