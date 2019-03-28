@@ -15,6 +15,8 @@ $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : "";
 
 if ($page != "") {
 	include "pages/{$page}.php";
+} else {
+	include "pages/home.php";
 }
 
 

@@ -1,3 +1,10 @@
+<?php
+include "../../includes/dbconnection.php";
+
+
+var_dump(select('users',"password"));
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -76,8 +83,21 @@
                 <div class="form-group row">
 
 
-                    <label for="address" class="col-md-2 ">Address</label>
-                    <input class="col-md-10" type="text" id="address" name="address" class="form-control" placeholder="Address (street, city, country)" required>
+                    <label for="address" class="col-md-2">Street</label>
+                    <input class="col-md-3" type="text" id="street" name="street" class="form-control" placeholder="Street" required>
+
+
+                    <label for="address" class="col-md-1">City</label>
+                    <input class="col-md-2" type="text" id="city" name="city" class="form-control" placeholder="City" required>
+
+                    <label for="address" class="col-md-2">Country</label>
+                    <select name="country" id="country" class="form-control col-md-2">
+                    <option value="Nepal">Nepal</option>
+                    <option value="India">India</option>
+                    <option value="China">China</option>
+                    <option value="Pakistan">Pakistan</option>
+                    <option value="Bangladesh">Bangladesh</option>
+                    </select>
                 </div>
 
 
@@ -95,27 +115,9 @@
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="http://localhost/dw/assets/js/jquery-3.3.1.js"></script>
     <script src="http://localhost/dw/assets/js/bootstrap.bundle.js"></script>
-    <!-- <script>
-	    $(document).ready(function() {
-	        $("#login_form").submit(function(e) {
-	            $.ajax({
-	                type: "post",
-	                url: "login.php",
-	                data: $("#login_form").serialize(),
-	                dataType: "text",
-	                success: function(response) {
-	                    if (response == "true") {
-	                        alert("login success");
-	                    } else {
-	                        alert("login Failed");
-	                    }
-	                }
-	            });
-	        });
-	    });
-	</script> -->
+  
 
-
+       
 </body>
 
 </html> 
